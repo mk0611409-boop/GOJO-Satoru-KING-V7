@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 GOJO SATRO KING | Ultimate Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05020a; --text: #ffffff; --glass: rgba(15, 10, 25, 0.85); --border: rgba(139, 92, 246, 0.2); --primary: #8b5cf6; --gold: #fbbf24;
+        }
+        [data-theme="light"] {
+            --bg: #f8fafc; --text: #0f172a; --glass: rgba(255, 255, 255, 0.9); --border: rgba(139, 92, 246, 0.3); --primary: #6d28d9; --gold: #b45309;
+        }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+        .title-font { font-family: 'Cinzel', serif; }
+        .gold-text { color: var(--gold); text-shadow: 0 0 15px rgba(251, 191, 36, 0.5); }
+        .glass { background: var(--glass); backdrop-filter: blur(16px); border: 1px solid var(--border); }
+        
+        .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--glass); backdrop-filter: blur(20px); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; overflow-x: auto; }
+        .nav-btn { background: transparent; border: none; color: var(--text); font-size: 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; opacity: 0.6; transition: 0.3s; min-width: 60px; }
+        .nav-btn.active { color: var(--gold); opacity: 1; transform: translateY(-3px); }
+        
+        .section { display: none; opacity: 0; width: 100%; flex-direction: column; align-items: center; padding-bottom: 100px; transition: opacity 0.4s; }
+        .section.active { display: flex; opacity: 1; }
+
+        .radar { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--primary); position: relative; overflow: hidden; margin: 10px auto; box-shadow: 0 0 20px var(--primary); }
+        .radar::after { content: ''; position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background: conic-gradient(from 0deg, transparent 0%, var(--primary) 100%); transform-origin: top left; animation: spin 3s linear infinite; opacity: 0.6; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .wheel-container { position: relative; width: 200px; height: 200px; margin: 20px auto; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--gold); background: conic-gradient(var(--primary) 0% 20%, var(--bg) 20% 40%, var(--primary) 40% 60%, var(--bg) 60% 80%, var(--primary) 80% 100%); transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); display: flex; justify-content: center; align-items: center; font-weight: bold; }
+        .wheel-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 30px; color: var(--gold); z-index: 10; }
+
+        #id-card { background: linear-gradient(135deg, #1a0b2e, #000); border: 2px solid var(--gold); padding: 20px; border-radius: 15px; text-align: center; width: 100%; max-width: 300px; margin: 0 auto; position: relative; color: white; }
+        #id-card img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary); margin: 0 auto 10px; object-fit: cover; }
+
+        .timeline { border-right: 2px solid var(--primary); padding-right: 15px; margin-right: 15px; text-align: right; }
+        .timeline-item { position: relative; margin-bottom: 15px; }
+        .timeline-item::before { content: ''; position: absolute; right: -22px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+
+        #impact-text { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); font-family: 'Cinzel', serif; font-size: 4rem; font-weight: 900; color: var(--gold); text-shadow: 4px 4px 0 #000; z-index: 99998; pointer-events: none; opacity: 0; }
+        .impact-anim { animation: impact 0.5s forwards; }
+        @keyframes impact { 0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 1; } 50% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0; } }
+
+        .mode-toggle { position: fixed; top: 15px; left: 15px; z-index: 9999; background: var(--glass); border: 1px solid var(--border); padding: 8px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="mode-toggle" onclick="toggleMode()">☀️</div>
+    <div id="impact-text">BAM!</div>
+
+    <header class="text-center mt-10 px-4 w-full flex flex-col items-center relative z-10">
+        <div class="w-20 h-20 rounded-full border-2 border-purple-500 overflow-hidden mb-2 shadow-[0_0_30px_rgba(139,92,246,0.6)]">
+            <img src="https://i.pinimg.com/736x/8f/29/93/8f2993c99a3b1c2d6a9d3674e7a6c3f0.jpg" alt="Gojo" class="w-full h-full object-cover">
+        </div>
+        <h1 class="title-font text-2xl md:text-4xl gold-text mb-1" dir="ltr">GOJO SATRO KING</h1>
+        <div class="radar"></div>
+    </header>
+
+    <main class="w-full max-w-4xl mx-auto mt-2 flex flex-col items-center px-4">
+
+        <!-- 1. Fox AI (بمربع المفتاح) -->
+        <section id="sec-ai" class="section active">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg">
+                <h2 class="text-lg text-purple-400 mb-3">🦊 Fox (AI)</h2>
+                <!-- مربع المفتاح -->
+                <input type="password" id="api-key-input" placeholder="ضع مفتاح OpenRouter هنا (sk-or-...)" class="w-full bg-black/20 border border-gray-600 rounded p-2 text-xs mb-3 text-white focus:outline-none focus:border-purple-500">
+                
+                <div id="chat-box" class="h-48 overflow-y-auto mb-3 bg-black/20 p-3 rounded text-sm flex flex-col space-y-2">
+                    <div class="text-gray-400">> جاهز.</div>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="user-input" placeholder="سؤالك..." class="flex-1 bg-black/20 border border-gray-600 rounded p-2 text-sm text-white focus:outline-none focus:border-purple-500">
+                    <button onclick="askOracle()" class="bg-purple-600 text-white px-4 rounded text-sm hover:bg-purple-500">إرسال</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ID Card -->
+        <section id="sec-card" class="section">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg text-center">
+                <h2 class="text-lg text-gold-text mb-3">🆔 بطاقة المحارب</h2>
+                <input type="text" id="card-name" placeholder="اسمك..." class="w-full bg-black/20 border border-gray-600 rounded p-2 mb-3 text-center text-white">
+                <button onclick="genCard()" class="bg-gold-text text-black font-bold py-2 w-full rounded mb-4 hover:bg-yellow-500">توليد البطاقة</button>
+                <div id="card-preview" class="hidden">
+                    <div id="id-card">
+                        <img src="https://i.pinimg.com/736x/8f/29/93/8f2993c99a3b1c2d6a9d3674e7a6c3f0.jpg">
+                        <h3 id="c-name" class="text-xl font-bold text-white mb-1"></h3>
+                        <p id="c-rank" class="text-xs text-gold-text mb-2"></p>
+                        <p class="text-[10px] text-gray-400">تحت إشراف: シ ᯓᴀʜᴍᴇᴅᯓ シ</p>
+                    </div>
+                    <button onclick="downloadCard()" class="mt-3 text-xs bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500">تحميل الصورة</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Map -->
+        <section id="sec-map" class="section">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg text-center">
+                <h2 class="text-lg text-purple-400 mb-3">🗾 خريطة اليابان</h2>
+                <p class="text-xs text-gray-400 mb-3">اضغط على الدوائر لاستكشاف الأنميات.</p>
+                <div class="relative w-full h-48 bg-gray-800 rounded-lg overflow-hidden flex justify-center items-center">
+                    <svg viewBox="0 0 100 100" class="w-full h-full opacity-50">
+                        <path d="M20,20 Q40,10 60,30 T80,70" fill="none" stroke="var(--primary)" stroke-width="2"/>
+                    </svg>
+                    <button onclick="alert('طوكيو: جوجوتسو كايسن')" class="absolute top-1/4 right-1/4 w-4 h-4 bg-gold-text rounded-full animate-pulse shadow-lg"></button>
+                    <button onclick="alert('أوساكا: بليتش')" class="absolute top-1/2 right-1/3 w-4 h-4 bg-gold-text rounded-full animate-pulse shadow-lg"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Roulette -->
+        <section id="sec-roulette" class="section">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg text-center">
+                <h2 class="text-lg text-purple-400 mb-3">🎡 عجلة الحظ</h2>
+                <div class="wheel-container">
+                    <div class="wheel-pointer">▼</div>
+                    <div id="wheel" class="wheel"><span id="wheel-text" class="text-white drop-shadow-md">؟</span></div>
+                </div>
+                <button onclick="spin()" class="mt-4 bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-500">أدر العجلة</button>
+            </div>
+        </section>
+
+        <!-- 5. Timeline -->
+        <section id="sec-timeline" class="section">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg">
+                <h2 class="text-lg text-gold-text mb-3">⏳ الخط الزمني</h2>
+                <div class="timeline text-sm">
+                    <div class="timeline-item"><b>2018:</b> بداية مانجا جوجوتسو.</div>
+                    <div class="timeline-item"><b>2020:</b> عرض الموسم الأول.</div>
+                    <div class="timeline-item"><b>2023:</b> أحداث شيبويا.</div>
+                    <div class="timeline-item"><b>2024:</b> معركة جوجو وسوكونا.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Leaderboard -->
+        <section id="sec-board" class="section">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg">
+                <h2 class="text-lg text-purple-400 mb-3">🏆 لوحة الصدارة</h2>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between bg-black/30 p-2 rounded"><span>1. جوجو ساتورو</span><span class="text-gold-text font-bold">100</span></div>
+                    <div class="flex justify-between bg-black/30 p-2 rounded"><span>2. سوكونا</span><span class="text-gold-text font-bold">98</span></div>
+                    <div class="flex justify-between bg-black/30 p-2 rounded"><span>3. ميجومي</span><span class="text-gold-text font-bold">85</span></div>
+                    <div class="flex justify-between bg-black/30 p-2 rounded"><span>4. يوجي</span><span class="text-gold-text font-bold">80</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Name Gen -->
+        <section id="sec-namegen" class="section">
+            <div class="glass rounded-2xl p-4 w-full max-w-lg text-center">
+                <h2 class="text-lg text-gold-text mb-3">🇯🇵 مولد الاسم الياباني</h2>
+                <input type="text" id="ar-name" placeholder="اسمك بالعربي..." class="w-full bg-black/20 border border-gray-600 rounded p-2 mb-3 text-center text-white">
+                <button onclick="genName()" class="bg-purple-600 text-white px-6 py-2 rounded mb-3 hover:bg-purple-500">تحويل</button>
+                <div id="jp-result" class="text-2xl font-bold text-gold-text"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full text-center py-4 mt-auto border-t border-gray-800/50 bg-black/30 text-gray-500 text-xs">
+        تحت إشراف: <span class="gold-text text-sm mx-1 font-bold">シ ᯓᴀʜᴍᴇᴅᯓ シ</span>
+    </footer>
+
+    <nav class="nav-bar">
+        <button class="nav-btn active" onclick="nav('sec-ai', this)">Fox</button>
+        <button class="nav-btn" onclick="nav('sec-card', this)">بطاقتي</button>
+        <button class="nav-btn" onclick="nav('sec-map', this)">الخريطة</button>
+        <button class="nav-btn" onclick="nav('sec-roulette', this)">العجلة</button>
+        <button class="nav-btn" onclick="nav('sec-timeline', this)">التاريخ</button>
+        <button class="nav-btn" onclick="nav('sec-board', this)">الصدارة</button>
+        <button class="nav-btn" onclick="nav('sec-namegen', this)">الياباني</button>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // تأثير المانجا
+        function playImpact() {
+            const el = document.getElementById('impact-text');
+            el.classList.remove('impact-anim');
+            void el.offsetWidth; 
+            el.classList.add('impact-anim');
+        }
+
+        function nav(id, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+            playImpact(); 
+        }
+
+        // Dark/Light Mode
+        function toggleMode() {
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            if(current === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                document.querySelector('.mode-toggle').textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                document.querySelector('.mode-toggle').textContent = '☀️';
+            }
+        }
+
+        // 1. Fox AI (بيقرأ المفتاح من المربع)
+        async function askOracle() {
+            const input = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+            const key = document.getElementById('api-key-input').value.trim(); // قراءة المفتاح
+            const q = input.value.trim();
+
+            if (!q) return;
+            if (!key) {
+                chatBox.innerHTML += `<div class="text-red-400 text-right">> ضع المفتاح أولاً.</div>`;
+                return;
+            }
+
+            chatBox.innerHTML += `<div class="text-purple-300 text-right"><b>أنت:</b> ${q}</div>`;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            const lId = "l" + Date.now();
+            chatBox.innerHTML += `<div id="${lId}" class="text-gray-500 text-left">> يحلل...</div>`;
+
+            try {
+                const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${key}`, "HTTP-Referer": "https://github.com", "X-Title": "Gojo Hub" },
+                    body: JSON.stringify({ model: "openrouter/free", messages: [{ role: "user", content: q }] })
+                });
+                const data = await res.json();
+                document.getElementById(lId).remove();
+                if(data.error) throw new Error(data.error.message);
+                chatBox.innerHTML += `<div class="text-gray-300 text-left"><b>Fox:</b> ${data.choices[0].message.content}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch(e) {
+                document.getElementById(lId).remove();
+                chatBox.innerHTML += `<div class="text-red-400 text-left">> خطأ: ${e.message}</div>`;
+            }
+        }
+
+        // 2. ID Card
+        function genCard() {
+            const name = document.getElementById('card-name').value.trim();
+            if(!name) return;
+            document.getElementById('card-preview').classList.remove('hidden');
+            document.getElementById('c-name').textContent = name;
+            document.getElementById('c-rank').textContent = "الدرجة الأولى ⚔️";
+            playImpact();
+        }
+        function downloadCard() {
+            html2canvas(document.getElementById('id-card')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Gojo_King_Card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        // 4. Roulette
+        let spinning = false;
+        function spin() {
+            if(spinning) return;
+            spinning = true;
+            const wheel = document.getElementById('wheel');
+            const text = document.getElementById('wheel-text');
+            const animes = ["جوجوتسو", "هجوم العملاق", "ناروتو", "ديمون سلاير", "ون بيس"];
+            const randomDeg = Math.floor(1000 + Math.random() * 3600);
+            wheel.style.transform = `rotate(${randomDeg}deg)`;
+            text.textContent = "؟";
+            setTimeout(() => {
+                const index = Math.floor(Math.random() * animes.length);
+                text.textContent = animes[index];
+                spinning = false;
+                playImpact();
+            }, 4000);
+        }
+
+        // 7. Name Gen
+        function genName() {
+            const name = document.getElementById('ar-name').value.trim();
+            if(!name) return;
+            const katakana = ["ア", "ハ", "マ", "ド", "サ", "ト", "ル"];
+            let res = "";
+            for(let i=0; i<name.length; i++) res += katakana[i % katakana.length];
+            document.getElementById('jp-result').textContent = res + " (サトル)";
+            playImpact();
+        }
+    </script>
+</body>
+  </html>
